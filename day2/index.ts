@@ -37,19 +37,15 @@ export class P1 implements Solution {
 
       if (charCount > input.maxChars) return false;
     }
-    if (charCount < input.minChars) return false;
-    return true;
+    
+    return charCount >= input.minChars;
   }
 
   isValid2(input: Input): boolean {
     const charAtPositionA = input.password.charAt(input.minChars - 1);
     const charAtPositionB = input.password.charAt(input.maxChars - 1);
 
-    const res =  (charAtPositionA === input.char) !== (charAtPositionB === input.char);
-    if (res) {
-      console.log(input.input);
-    }
-    return res;
+    return (charAtPositionA === input.char) !== (charAtPositionB === input.char);
   }
 
   async run() {
