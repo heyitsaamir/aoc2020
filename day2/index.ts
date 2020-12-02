@@ -28,7 +28,7 @@ export class P1 implements Solution {
     })
   }
 
-  isValid(input: Input): boolean {
+  isValidPartOne(input: Input): boolean {
     let charCount = 0;
     for (let i = 0; i < input.password.length; i++) {
       if (input.password.charAt(i) === input.char) {
@@ -37,11 +37,11 @@ export class P1 implements Solution {
 
       if (charCount > input.maxChars) return false;
     }
-    
+
     return charCount >= input.minChars;
   }
 
-  isValid2(input: Input): boolean {
+  isValidPartTwo(input: Input): boolean {
     const charAtPositionA = input.password.charAt(input.minChars - 1);
     const charAtPositionB = input.password.charAt(input.maxChars - 1);
 
@@ -51,7 +51,7 @@ export class P1 implements Solution {
   async run() {
     const data = readInput('./inputs/d2.txt');
     const inputs = this.parse(data);
-    const valid = inputs.reduce((count, input) => this.isValid2(input) ? count + 1 :  count, 0);
+    const valid = inputs.filter(this.isValidPartTwo).length;
     return valid.toString();
   }
 }
