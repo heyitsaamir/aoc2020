@@ -1,5 +1,5 @@
-import { readInput } from '../utils/readInput';
-import { Solution } from '../utils/types';
+import { readInput } from "../utils/readInput";
+import { Solution } from "../utils/types";
 
 interface Input {
   input: string;
@@ -12,11 +12,11 @@ interface Input {
 export class P1 implements Solution {
   parse(input: string): Input[] {
     // 4-7 z: zzzfzlzzz
-    const lines = input.split('\n');
-    return lines.map(line => {
-      const tokens = line.split(' ');
-      const [minChars, maxChars] = tokens[0].split('-');
-      const character = tokens[1].split(':')[0];
+    const lines = input.split("\n");
+    return lines.map((line) => {
+      const tokens = line.split(" ");
+      const [minChars, maxChars] = tokens[0].split("-");
+      const character = tokens[1].split(":")[0];
       const password = tokens[2];
       return {
         input: line,
@@ -24,8 +24,8 @@ export class P1 implements Solution {
         maxChars: Number(maxChars),
         char: character,
         password,
-      }
-    })
+      };
+    });
   }
 
   isValidPartOne(input: Input): boolean {
@@ -45,11 +45,13 @@ export class P1 implements Solution {
     const charAtPositionA = input.password.charAt(input.minChars - 1);
     const charAtPositionB = input.password.charAt(input.maxChars - 1);
 
-    return (charAtPositionA === input.char) !== (charAtPositionB === input.char);
+    return (
+      (charAtPositionA === input.char) !== (charAtPositionB === input.char)
+    );
   }
 
   async run() {
-    const data = readInput('./inputs/d2.txt');
+    const data = readInput("./inputs/d2.txt");
     const inputs = this.parse(data);
     const valid = inputs.filter(this.isValidPartTwo).length;
     return valid.toString();

@@ -1,10 +1,10 @@
-import {Solution} from '../utils/types';
+import { Solution } from "../utils/types";
 
 type Input = {
   nums: number[];
-}
+};
 
-const input: Input = require('./input.json');
+const input: Input = require("./input.json");
 
 export class P1 implements Solution {
   async run() {
@@ -15,7 +15,7 @@ export class P1 implements Solution {
         return `${num} * ${diff} = ${num * diff}`;
       }
     }
-    throw new Error('Not found!');
+    throw new Error("Not found!");
   }
 }
 
@@ -24,17 +24,19 @@ export class P2 implements Solution {
     const sortedArray = input.nums.sort((a, b) => a - b);
     for (let i = 0; i < sortedArray.length - 2; i++) {
       const requiredDiff = 2020 - sortedArray[i];
-      for (let j = i + 1, k = sortedArray.length - 1; j < k;) {
+      for (let j = i + 1, k = sortedArray.length - 1; j < k; ) {
         const sumOfLastTwoNumbers = sortedArray[j] + sortedArray[k];
         if (sumOfLastTwoNumbers < requiredDiff) {
           j++;
         } else if (sumOfLastTwoNumbers > requiredDiff) {
           k--;
         } else {
-          return `${sortedArray[i]} * ${sortedArray[j]} * ${sortedArray[k]} = ${sortedArray[i] * sortedArray[j] * sortedArray[k]}`
+          return `${sortedArray[i]} * ${sortedArray[j]} * ${sortedArray[k]} = ${
+            sortedArray[i] * sortedArray[j] * sortedArray[k]
+          }`;
         }
       }
     }
-    throw new Error('Not found!');
+    throw new Error("Not found!");
   }
 }
