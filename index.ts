@@ -1,4 +1,4 @@
-import { P1 } from "./day4";
+import { P1 } from "./day5";
 const solution = new P1();
 
 solution.run().then((res) => {
