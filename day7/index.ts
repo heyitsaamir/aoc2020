@@ -6,19 +6,9 @@ interface Bag {
   contains: { quantity: number; type: string }[];
   isContainedBy: { quantity: number; type: string }[];
 }
-/**
- * light red bags contain 1 bright white bag, 2 muted yellow bags.
-dark orange bags contain 3 bright white bags, 4 muted yellow bags.
-bright white bags contain 1 shiny gold bag.
-muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.
-shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.
-dark olive bags contain 3 faded blue bags, 4 dotted black bags.
-vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.
-faded blue bags contain no other bags.
-dotted black bags contain no other bags.
- */
+
 export class P1 implements Solution {
-  parse(input: string): Map<string, Bag> {
+  parseAndBuildGraph(input: string): Map<string, Bag> {
     const rules = input.split("\n");
     const bags: Map<string, Bag> = new Map();
     rules.forEach((rule) => {
@@ -81,9 +71,7 @@ export class P1 implements Solution {
       visited.add(topOfStack);
       const bag = bagMap.get(topOfStack)!;
       bag.isContainedBy.forEach(({ type }) => {
-        if (!visited.has(type)) {
-          stack.push(type);
-        }
+        stack.push(type);
       });
     }
     return total;
@@ -96,6 +84,7 @@ export class P1 implements Solution {
   getBagsInside(bagMap: Map<string, Bag>, bagName: string): number {
     // for each of the bags inside, get bags inside those,
     // then add 1 and multiply the result with quantity
+    // lol this will blow up if there are any cycles
     const bag = bagMap.get(bagName)!;
     return bag.contains.reduce((total, containedBag) => {
       const containedBags = this.getBagsInside(bagMap, containedBag.type);
@@ -105,7 +94,7 @@ export class P1 implements Solution {
 
   async run() {
     const data = readInput("./inputs/d7.txt");
-    const bagMap = this.parse(data);
+    const bagMap = this.parseAndBuildGraph(data);
     return this.part2(bagMap).toString();
   }
 }
