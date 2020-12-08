@@ -105,7 +105,7 @@ export class P1 implements Solution {
           new Set(Array.from(indexDone).slice())
         );
         if (traverseResult != null) {
-          return this.traverse(operations);
+          return acc + traverseResult;
         } else {
           operations[index].type =
             operations[index].type === "nop" ? "jmp" : "nop";
