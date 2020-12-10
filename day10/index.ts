@@ -61,15 +61,6 @@ export class P1 implements Solution {
     return total;
   }
 
-  /**
-   * 16 17 18 19 22
-   * 18 - 19 (1)
-   * 17 - 18 (1), 17 - 19
-   * 16 - 17, 16 -
-   *
-   * 19 can be hit with 16, 17, and 1
-   */
-
   async run() {
     const data = readInput("./inputs/d10.txt");
     const input = this.parse(data);
