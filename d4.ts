@@ -1,5 +1,5 @@
-import { readInput } from "../utils/readInput";
-import { Solution } from "../utils/types";
+import { readInput } from "./utils/readInput";
+import { Solution } from "./utils/types";
 
 interface Input {
   passports: Passport[];
@@ -27,7 +27,7 @@ interface Passport {
   cid?: string;
 }
 
-export class P1 implements Solution {
+export class DaySolution implements Solution {
   parse(input: string): Input {
     const passportLines = input.split("\n\n");
     const passports = passportLines.map((p) => {

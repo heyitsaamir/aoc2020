@@ -1,12 +1,12 @@
-import { readInput } from "../utils/readInput";
-import { Solution } from "../utils/types";
+import { readInput } from "./utils/readInput";
+import { Solution } from "./utils/types";
 
 interface Seat {
   row: number;
   col: number;
 }
 
-export class P1 implements Solution {
+export class DaySolution implements Solution {
   parse(input: string): Seat[] {
     const inputStrings = input.split("\n");
     return inputStrings.map((inputString) => {

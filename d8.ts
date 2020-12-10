@@ -1,5 +1,5 @@
-import { readInput } from "../utils/readInput";
-import { Solution } from "../utils/types";
+import { readInput } from "./utils/readInput";
+import { Solution } from "./utils/types";
 
 type OperationType = "nop" | "jmp" | "acc";
 
@@ -8,7 +8,7 @@ interface Operation {
   amt: number;
 }
 
-export class P1 implements Solution {
+export class DaySolution implements Solution {
   parseOperations(input: string): Operation[] {
     const operationStrings = input.split("\n");
     return operationStrings.map((str) => {

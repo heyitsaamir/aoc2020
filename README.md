@@ -1,5 +1,5 @@
 # aoc2020
 
 ```
-yarn go
+yarn go <day_number>
 ```

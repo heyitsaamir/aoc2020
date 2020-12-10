@@ -1,12 +1,12 @@
-import { Solution } from "../utils/types";
+import { Solution } from "./utils/types";
 
 type Input = {
   nums: number[];
 };
 
-const input: Input = require("./input.json");
+const input: Input = require("./inputs/d1.json");
 
-export class P1 implements Solution {
+export class DaySolution implements Solution {
   async run() {
     const set = new Set(input.nums);
     for (const num of input.nums) {

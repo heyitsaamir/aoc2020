@@ -1,5 +1,5 @@
-import { readInput } from "../utils/readInput";
-import { Solution } from "../utils/types";
+import { readInput } from "./utils/readInput";
+import { Solution } from "./utils/types";
 
 interface Input {
   input: string;
@@ -9,7 +9,7 @@ interface Input {
   password: string;
 }
 
-export class P1 implements Solution {
+export class DaySolution implements Solution {
   parse(input: string): Input[] {
     // 4-7 z: zzzfzlzzz
     const lines = input.split("\n");

@@ -1,11 +1,11 @@
-import { readInput } from "../utils/readInput";
-import { Solution } from "../utils/types";
+import { readInput } from "./utils/readInput";
+import { Solution } from "./utils/types";
 
 interface Group {
   correctAnswers: Set<string>;
 }
 
-export class P1 implements Solution {
+export class DaySolution implements Solution {
   parse(input: string): Group[] {
     const inputStrings = input.split("\n\n");
     return inputStrings.map((inputString) => {

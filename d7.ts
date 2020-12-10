@@ -1,5 +1,5 @@
-import { readInput } from "../utils/readInput";
-import { Solution } from "../utils/types";
+import { readInput } from "./utils/readInput";
+import { Solution } from "./utils/types";
 
 interface Bag {
   type: string;
@@ -7,7 +7,7 @@ interface Bag {
   isContainedBy: { quantity: number; type: string }[];
 }
 
-export class P1 implements Solution {
+export class DaySolution implements Solution {
   parseAndBuildGraph(input: string): Map<string, Bag> {
     const rules = input.split("\n");
     const bags: Map<string, Bag> = new Map();

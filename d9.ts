@@ -1,7 +1,7 @@
-import { readInput } from "../utils/readInput";
-import { Solution } from "../utils/types";
+import { readInput } from "./utils/readInput";
+import { Solution } from "./utils/types";
 
-export class P1 implements Solution {
+export class DaySolution implements Solution {
   parse(input: string): number[] {
     return input.split("\n").map(Number);
   }
