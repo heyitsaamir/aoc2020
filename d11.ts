@@ -108,105 +108,34 @@ export class DaySolution implements Solution {
     if (input[row][col] === ".") return "NO_CHANGE";
 
     let occupiedAdjacentSeats = 0;
-    // top left
-    let rRow = row - 1;
-    let cCol = col - 1;
-    while (rRow >= 0 && cCol >= 0) {
-      if (input[rRow][cCol] === "L") break;
-      if (input[rRow][cCol] === "#") {
-        occupiedAdjacentSeats++;
-        break;
-      }
-      rRow--;
-      cCol--;
-    }
+    [
+      { rowIncrease: -1, colIncrease: -1 },
+      { rowIncrease: -1, colIncrease: 0 },
+      { rowIncrease: -1, colIncrease: 1 },
+      { rowIncrease: 0, colIncrease: -1 },
+      { rowIncrease: 0, colIncrease: 1 },
+      { rowIncrease: 1, colIncrease: -1 },
+      { rowIncrease: 1, colIncrease: 0 },
+      { rowIncrease: 1, colIncrease: 1 },
+    ].forEach(({ rowIncrease, colIncrease }) => {
+      let rRow = row + rowIncrease;
+      let cCol = col + colIncrease;
 
-    // top
-    rRow = row - 1;
-    cCol = col;
-    while (rRow >= 0) {
-      if (input[rRow][cCol] === "L") break;
-      if (input[rRow][cCol] === "#") {
-        occupiedAdjacentSeats++;
-        break;
+      while (
+        rRow >= 0 &&
+        rRow < input.length &&
+        cCol >= 0 &&
+        cCol < input[0].length
+      ) {
+        if (input[rRow][cCol] === "L") break;
+        if (input[rRow][cCol] === "#") {
+          occupiedAdjacentSeats++;
+          break;
+        }
+        rRow += rowIncrease;
+        cCol += colIncrease;
       }
-      rRow--;
-    }
-
-    // topRight
-    rRow = row - 1;
-    cCol = col + 1;
-    while (rRow >= 0 && cCol < input[0].length) {
-      if (input[rRow][cCol] === "L") break;
-      if (input[rRow][cCol] === "#") {
-        occupiedAdjacentSeats++;
-        break;
-      }
-      rRow--;
-      cCol++;
-    }
-
-    // left
-    rRow = row;
-    cCol = col - 1;
-    while (cCol >= 0) {
-      if (input[rRow][cCol] === "L") break;
-      if (input[rRow][cCol] === "#") {
-        occupiedAdjacentSeats++;
-        break;
-      }
-      cCol--;
-    }
-
-    //right
-    rRow = row;
-    cCol = col + 1;
-    while (cCol < input[0].length) {
-      if (input[rRow][cCol] === "L") break;
-      if (input[rRow][cCol] === "#") {
-        occupiedAdjacentSeats++;
-        break;
-      }
-      cCol++;
-    }
-
-    // bottom  left
-    rRow = row + 1;
-    cCol = col - 1;
-    while (rRow < input.length && cCol >= 0) {
-      if (input[rRow][cCol] === "L") break;
-      if (input[rRow][cCol] === "#") {
-        occupiedAdjacentSeats++;
-        break;
-      }
-      rRow++;
-      cCol--;
-    }
-
-    // bottom
-    rRow = row + 1;
-    cCol = col;
-    while (rRow < input.length) {
-      if (input[rRow][cCol] === "L") break;
-      if (input[rRow][cCol] === "#") {
-        occupiedAdjacentSeats++;
-        break;
-      }
-      rRow++;
-    }
-
-    // bottom Right
-    rRow = row + 1;
-    cCol = col + 1;
-    while (rRow < input.length && cCol < input[0].length) {
-      if (input[rRow][cCol] === "L") break;
-      if (input[rRow][cCol] === "#") {
-        occupiedAdjacentSeats++;
-        break;
-      }
-      rRow++;
-      cCol++;
-    }
+    });
 
     if (input[row][col] === "L" && occupiedAdjacentSeats === 0) return "SIT";
     if (input[row][col] === "#" && occupiedAdjacentSeats >= 5) return "LEAVE";
