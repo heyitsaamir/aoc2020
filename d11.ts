@@ -3,15 +3,29 @@ import { Solution } from "./utils/types";
 
 type Input = string[][];
 
+type OccupanceyEvaluator = (
+  input: Input,
+  row: number,
+  col: number
+) => "SIT" | "LEAVE" | "NO_CHANGE";
+
 export class DaySolution implements Solution {
   parse(input: string): Input {
     return input.split("\n").map((line) => line.split(""));
   }
 
   part1(input: Input) {
+    return this.evaluate(input, this.nextMove1);
+  }
+
+  part2(input: Input) {
+    return this.evaluate(input, this.nextMove2);
+  }
+
+  evaluate(input: Input, occupancyEvaluator: OccupanceyEvaluator) {
     let oldInput = input;
     while (true) {
-      const newInput = this.evaluate1(oldInput);
+      const newInput = this.updateSeating(oldInput, occupancyEvaluator);
       if (newInput == null) break;
       oldInput = newInput;
     }
@@ -21,11 +35,14 @@ export class DaySolution implements Solution {
     }, 0);
   }
 
-  evaluate1(input: Input): Input | null {
+  updateSeating(
+    input: Input,
+    occupancyEvaluator: OccupanceyEvaluator
+  ): Input | null {
     let numberOfChanges = 0;
     const newOutput = input.map((row, rowIndex) => {
       return row.map((_, colIndex) => {
-        const nextMove = this.nextMove1(input, rowIndex, colIndex);
+        const nextMove = occupancyEvaluator(input, rowIndex, colIndex);
         switch (nextMove) {
           case "SIT":
             numberOfChanges++;
@@ -64,40 +81,6 @@ export class DaySolution implements Solution {
     if (input[row][col] === "L" && occupiedAdjacentSeats === 0) return "SIT";
     if (input[row][col] === "#" && occupiedAdjacentSeats >= 4) return "LEAVE";
     return "NO_CHANGE";
-  }
-
-  part2(input: Input) {
-    let oldInput = input;
-    while (true) {
-      const newInput = this.evaluate2(oldInput);
-      if (newInput == null) break;
-      oldInput = newInput;
-    }
-
-    return oldInput.reduce((total, row) => {
-      return total + row.filter((cell) => cell === "#").length;
-    }, 0);
-  }
-
-  evaluate2(input: Input): Input | null {
-    let numberOfChanges = 0;
-    const newOutput = input.map((row, rowIndex) => {
-      return row.map((_, colIndex) => {
-        const nextMove = this.nextMove2(input, rowIndex, colIndex);
-        switch (nextMove) {
-          case "SIT":
-            numberOfChanges++;
-            return "#";
-          case "LEAVE":
-            numberOfChanges++;
-            return "L";
-          default:
-            return input[rowIndex][colIndex];
-        }
-      });
-    });
-    if (numberOfChanges === 0) return null;
-    return newOutput;
   }
 
   nextMove2(
@@ -140,12 +123,6 @@ export class DaySolution implements Solution {
     if (input[row][col] === "L" && occupiedAdjacentSeats === 0) return "SIT";
     if (input[row][col] === "#" && occupiedAdjacentSeats >= 5) return "LEAVE";
     return "NO_CHANGE";
-  }
-
-  print(input: Input | null) {
-    if (input == null) return;
-    console.log(input.map((r) => r.join("")).join("\n"));
-    console.log("---");
   }
 
   async run() {
