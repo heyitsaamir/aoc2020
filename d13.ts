@@ -37,7 +37,7 @@ export class DaySolution implements Solution {
   }
 
   part2(input: Input) {
-    const busIdsWithDiff = input.busIds
+    const busIdsWithIndex = input.busIds
       .map((bId, index) => {
         return {
           bId,
@@ -55,19 +55,19 @@ export class DaySolution implements Solution {
     // then find one that's divisible by 1 * 3 * 5
     // i dont think this would work for _any_ numbers
     // but i think all numbers we have are prime, so this works
-    for (let i = 0; i < busIdsWithDiff.length; i++) {
+    for (let i = 0; i < busIdsWithIndex.length; i++) {
       while (true) {
         time += advanceBy;
         if (
           this.isDivisible(
-            time + busIdsWithDiff[i].index,
-            busIdsWithDiff[i].bId
+            time + busIdsWithIndex[i].index,
+            busIdsWithIndex[i].bId
           )
         ) {
           break;
         }
       }
-      advanceBy = advanceBy * busIdsWithDiff[i].bId;
+      advanceBy = advanceBy * busIdsWithIndex[i].bId;
     }
 
     return time;
