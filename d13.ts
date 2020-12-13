@@ -47,10 +47,23 @@ export class DaySolution implements Solution {
       .filter((b) => b.bId !== -1);
     let time = 0;
     let advanceBy = 1;
+    // for each bus, find the number it divides with
+    // every bus before it
+    // so if you have busid 1, 3, 5
+    // find a time that's divisible by 1 (1)
+    // then find one that's divisible by 1 and 3 (3)
+    // then find one that's divisible by 1 * 3 * 5
+    // i dont think this would work for _any_ numbers
+    // but i think all numbers we have are prime, so this works
     for (let i = 0; i < busIdsWithDiff.length; i++) {
       while (true) {
         time += advanceBy;
-        if ((time + busIdsWithDiff[i].index) % busIdsWithDiff[i].bId === 0) {
+        if (
+          this.isDivisible(
+            time + busIdsWithDiff[i].index,
+            busIdsWithDiff[i].bId
+          )
+        ) {
           break;
         }
       }
