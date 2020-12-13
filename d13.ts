@@ -48,7 +48,7 @@ export class DaySolution implements Solution {
     let time = 0;
     let advanceBy = 1;
     // for each bus, find the number it divides with
-    // every bus before it
+    // and also with every bus before it
     // so if you have busid 1, 3, 5
     // find a time that's divisible by 1 (1)
     // then find one that's divisible by 1 and 3 (3)
